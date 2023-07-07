@@ -1,0 +1,703 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>t1</title>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+
+</head>
+
+<body>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+<script src="js/echarts.min.js"></script>
+<script src="js/china.js"></script>
+
+</head>
+<body>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+</style>
+
+<div id="china-map" style="width:100%;height:600px;"></div>
+
+<script>
+var myChart = echarts.init(document.getElementById('china-map'));
+var cityMap = {
+	"海门": [121.15, 31.89],
+	"鄂尔多斯": [109.781327, 39.608266],
+	"招远": [120.38, 37.35],
+	"舟山": [122.207216, 29.985295],
+	"齐齐哈尔": [123.97, 47.33],
+	"盐城": [120.13, 33.38],
+	"赤峰": [118.87, 42.28],
+	"青岛": [120.33, 36.07],
+	"乳山": [121.52, 36.89],
+	"金昌": [102.188043, 38.520089],
+	"泉州": [118.58, 24.93],
+	"莱西": [120.53, 36.86],
+	"日照": [119.46, 35.42],
+	"胶南": [119.97, 35.88],
+	"南通": [121.05, 32.08],
+	"拉萨": [91.11, 29.97],
+	"云浮": [112.02, 22.93],
+	"梅州": [116.1, 24.55],
+	"文登": [122.05, 37.2],
+	"上海": [121.48, 31.22],
+	"攀枝花": [101.718637, 26.582347],
+	"威海": [122.1, 37.5],
+	"承德": [117.93, 40.97],
+	"厦门": [118.1, 24.46],
+	"汕尾": [115.375279, 22.786211],
+	"潮州": [116.63, 23.68],
+	"丹东": [124.37, 40.13],
+	"太仓": [121.1, 31.45],
+	"曲靖": [103.79, 25.51],
+	"烟台": [121.39, 37.52],
+	"福州": [119.3, 26.08],
+	"瓦房店": [121.979603, 39.627114],
+	"即墨": [120.45, 36.38],
+	"抚顺": [123.97, 41.97],
+	"玉溪": [102.52, 24.35],
+	"张家口": [114.87, 40.82],
+	"阳泉": [113.57, 37.85],
+	"莱州": [119.942327, 37.177017],
+	"湖州": [120.1, 30.86],
+	"汕头": [116.69, 23.39],
+	"昆山": [120.95, 31.39],
+	"宁波": [121.56, 29.86],
+	"湛江": [110.359377, 21.270708],
+	"揭阳": [116.35, 23.55],
+	"荣成": [122.41, 37.16],
+	"连云港": [119.16, 34.59],
+	"葫芦岛": [120.836932, 40.711052],
+	"常熟": [120.74, 31.64],
+	"东莞": [113.75, 23.04],
+	"河源": [114.68, 23.73],
+	"淮安": [119.15, 33.5],
+	"泰州": [119.9, 32.49],
+	"南宁": [108.33, 22.84],
+	"营口": [122.18, 40.65],
+	"惠州": [114.4, 23.09],
+	"江阴": [120.26, 31.91],
+	"蓬莱": [120.75, 37.8],
+	"韶关": [113.62, 24.84],
+	"嘉峪关": [98.289152, 39.77313],
+	"广州": [113.23, 23.16],
+	"延安": [109.47, 36.6],
+	"太原": [112.53, 37.87],
+	"清远": [113.01, 23.7],
+	"中山": [113.38, 22.52],
+	"昆明": [102.73, 25.04],
+	"寿光": [118.73, 36.86],
+	"盘锦": [122.070714, 41.119997],
+	"长治": [113.08, 36.18],
+	"深圳": [114.07, 22.62],
+	"珠海": [113.52, 22.3],
+	"宿迁": [118.3, 33.96],
+	"咸阳": [108.72, 34.36],
+	"铜川": [109.11, 35.09],
+	"平度": [119.97, 36.77],
+	"佛山": [113.11, 23.05],
+	"海口": [110.35, 20.02],
+	"江门": [113.06, 22.61],
+	"章丘": [117.53, 36.72],
+	"肇庆": [112.44, 23.05],
+	"大连": [121.62, 38.92],
+	"临汾": [111.5, 36.08],
+	"吴江": [120.63, 31.16],
+	"石嘴山": [106.39, 39.04],
+	"沈阳": [123.38, 41.8],
+	"苏州": [120.62, 31.32],
+	"茂名": [110.88, 21.68],
+	"嘉兴": [120.76, 30.77],
+	"长春": [125.35, 43.88],
+	"胶州": [120.03336, 36.264622],
+	"银川": [106.27, 38.47],
+	"张家港": [120.555821, 31.875428],
+	"三门峡": [111.19, 34.76],
+	"锦州": [121.15, 41.13],
+	"南昌": [115.89, 28.68],
+	"柳州": [109.4, 24.33],
+	"三亚": [109.511909, 18.252847],
+	"自贡": [104.778442, 29.33903],
+	"吉林": [126.57, 43.87],
+	"阳江": [111.95, 21.85],
+	"泸州": [105.39, 28.91],
+	"西宁": [101.74, 36.56],
+	"宜宾": [104.56, 29.77],
+	"呼和浩特": [111.65, 40.82],
+	"成都": [104.06, 30.67],
+	"大同": [113.3, 40.12],
+	"镇江": [119.44, 32.2],
+	"桂林": [110.28, 25.29],
+	"张家界": [110.479191, 29.117096],
+	"宜兴": [119.82, 31.36],
+	"北海": [109.12, 21.49],
+	"西安": [108.95, 34.27],
+	"金坛": [119.56, 31.74],
+	"东营": [118.49, 37.46],
+	"牡丹江": [129.58, 44.6],
+	"遵义": [106.9, 27.7],
+	"绍兴": [120.58, 30.01],
+	"扬州": [119.42, 32.39],
+	"常州": [119.95, 31.79],
+	"潍坊": [119.1, 36.62],
+	"重庆": [106.54, 29.59],
+	"台州": [121.420757, 28.656386],
+	"南京": [118.78, 32.04],
+	"滨州": [118.03, 37.36],
+	"贵阳": [106.71, 26.57],
+	"无锡": [120.29, 31.59],
+	"本溪": [123.73, 41.3],
+	"克拉玛依": [84.77, 45.59],
+	"渭南": [109.5, 34.52],
+	"马鞍山": [118.48, 31.56],
+	"宝鸡": [107.15, 34.38],
+	"焦作": [113.21, 35.24],
+	"句容": [119.16, 31.95],
+	"北京": [116.46, 39.92],
+	"徐州": [117.2, 34.26],
+	"衡水": [115.72, 37.72],
+	"包头": [110, 40.58],
+	"绵阳": [104.73, 31.48],
+	"乌鲁木齐": [87.68, 43.77],
+	"枣庄": [117.57, 34.86],
+	"杭州": [120.19, 30.26],
+	"淄博": [118.05, 36.78],
+	"鞍山": [122.85, 41.12],
+	"溧阳": [119.48, 31.43],
+	"库尔勒": [86.06, 41.68],
+	"安阳": [114.35, 36.1],
+	"开封": [114.35, 34.79],
+	"济南": [117, 36.65],
+	"德阳": [104.37, 31.13],
+	"温州": [120.65, 28.01],
+	"九江": [115.97, 29.71],
+	"邯郸": [114.47, 36.6],
+	"临安": [119.72, 30.23],
+	"兰州": [103.73, 36.03],
+	"沧州": [116.83, 38.33],
+	"临沂": [118.35, 35.05],
+	"南充": [106.110698, 30.837793],
+	"天津": [117.2, 39.13],
+	"富阳": [119.95, 30.07],
+	"泰安": [117.13, 36.18],
+	"诸暨": [120.23, 29.71],
+	"郑州": [113.65, 34.76],
+	"哈尔滨": [126.63, 45.75],
+	"聊城": [115.97, 36.45],
+	"芜湖": [118.38, 31.33],
+	"唐山": [118.02, 39.63],
+	"平顶山": [113.29, 33.75],
+	"邢台": [114.48, 37.05],
+	"德州": [116.29, 37.45],
+	"济宁": [116.59, 35.38],
+	"荆州": [112.239741, 30.335165],
+	"宜昌": [111.3, 30.7],
+	"义乌": [120.06, 29.32],
+	"丽水": [119.92, 28.45],
+	"洛阳": [112.44, 34.7],
+	"秦皇岛": [119.57, 39.95],
+	"株洲": [113.16, 27.83],
+	"石家庄": [114.48, 38.03],
+	"莱芜": [117.67, 36.19],
+	"常德": [111.69, 29.05],
+	"保定": [115.48, 38.85],
+	"湘潭": [112.91, 27.87],
+	"金华": [119.64, 29.12],
+	"岳阳": [113.09, 29.37],
+	"长沙": [113, 28.21],
+	"衢州": [118.88, 28.97],
+	"廊坊": [116.7, 39.53],
+	"菏泽": [115.480656, 35.23375],
+	"合肥": [117.27, 31.86],
+	"武汉": [114.31, 30.52],
+	"大庆": [125.03, 46.58]
+};
+
+// 地图散点图数据
+var data = [
+  { name: "武汉", value: 6 },
+  { name: "南京", value: 2 },
+  { name: "宜昌", value: 2 },
+  { name: "高淳", value: 1 },
+  { name: "临沂", value: 4 },
+  { name: "吉安", value: 2 },
+  { name: "深圳", value: 2 },
+  { name: "巴中", value: 4 },
+  { name: "忠县", value: 4 },
+  { name: "通化", value: 3 },
+  { name: "青岛", value: 2 },
+  { name: "莆田", value: 5 },
+  { name: "广州", value: 4 },
+  { name: "成都", value: 6 },
+  { name: "常州", value: 2 },
+  { name: "驻马店", value: 1 },
+  { name: "咸宁", value: 3 },
+  { name: "赣州", value: 1 },
+  { name: "金昌", value: 1 },
+  { name: "汕头", value: 2 },
+  { name: "赤峰", value: 1 },
+  { name: "喀什", value: 2 },
+  { name: "东莞", value: 2 },
+  { name: "阿克苏", value: 3 },
+  { name: "大庆", value: 1 },
+  { name: "临汾", value: 2 },
+  { name: "齐齐哈尔", value: 3 },
+  { name: "怀化", value: 3 },
+  { name: "山西", value: 2 },
+  { name: "黑龙江", value: 4 },
+  { name: "湖南", value: 3 },
+  { name: "新疆", value: 3 },
+  { name: "湖北", value: 5 },
+  { name: "广东", value: 6 },
+  { name: "云浮", value: 2 },
+  { name: "河北", value: 1 },
+  { name: "和田", value: 1 },
+  { name: "黑河", value: 1 },
+  { name: "兰州", value: 1 },
+  { name: "广安", value: 1 },
+  { name: "永州", value: 2 },
+  { name: "嘉峪关", value: 1 }
+];
+
+
+
+function convertData(data) {
+	console.log(data)
+	var res = [];
+	for (var i = 0; i < data.length; i++) {
+		var geoCoord = cityMap[data[i].name];
+		if (geoCoord) {
+			res.push({
+				name: data[i].name,
+				value: geoCoord.concat(data[i].value)
+			});
+		}
+	}
+	// console.log('convertData拼接数据：', res)
+	return res;
+};
+// 地图散点图配置
+option = {
+	backgroundColor: '#404a59',
+	title: {
+		// text: '销售点',
+		x: 'center',
+		textStyle: {
+			color: '#fff'
+		}
+	},
+	tooltip: {
+		trigger: 'item',
+		show: true,
+		formatter: function(params) {
+			// console.log(params)
+			return params.name + ' : ' + params.value[2];
+		}
+	},
+	geo: {
+		map: 'china',
+		// left: '10%',
+		roam: true,
+		zoom: '1.1',
+		label: {
+			normal: {
+				show: false,
+				color: 'orange'
+			},
+			emphasis: {
+				show: true,
+				color: 'orange',
+			}
+		},
+		itemStyle: {
+			normal: {
+				areaColor: '#323c48',
+				borderColor: '#111'
+			},
+			emphasis: {
+				areaColor: '#2a333d',
+				show: false,
+			}
+		}
+	},
+	series: [{
+			type: 'scatter',
+			coordinateSystem: 'geo',
+			symbolSize: 6,
+			data: convertData(data),
+			label: {
+				normal: {
+					show: false
+				},
+				emphasis: {
+					show: false
+				}
+			},
+			itemStyle: {
+				emphasis: {
+					borderColor: '#fff',
+					borderWidth: 1
+				}
+			}
+		},
+		{
+			type: 'effectScatter',
+			coordinateSystem: 'geo',
+			data: convertData(data),
+			symbolSize: 6,
+			showEffectOn: 'render',
+			rippleEffect: {
+				brushType: 'stroke'
+			},
+			hoverAnimation: true,
+			label: {
+				normal: {
+					formatter: '{b}',
+					position: 'right',
+					show: true
+				}
+			},
+			itemStyle: {
+				normal: {
+					color: '#f4e925',
+					shadowBlur: 10,
+					shadowColor: '#333'
+				}
+			},
+			zlevel: 1
+		},
+	]
+}
+
+myChart.setOption(option);
+
+myChart.on('click', function(params) {
+	console.log(params); //此处写点击事件内容
+}); //点击事
+</script>
+
+<div style="text-align:center;margin:10px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	function filterArray(arr){
+		var newarr = new Array();
+		for(var i=0; i<arr.length; i++){
+			if($.inArray(arr[i],newarr)==-1){
+				newarr.push(arr[i]);
+			}
+		}
+		return newarr;
+	}
+	
+	var dataSource = [
+	
+			
+			
+			
+			{province:'江苏',city:'南京',name:'南京市高淳生态环境局受理建设项目环评文件情况公示（高淳区）( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			{province:'湖北',city:'武汉',name:'审批新型建筑材料生产加工项目( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			
+			{province:'湖北',city:'宜昌',name:'宜昌君思奥建材有限公司陶粒保温墙体建设项目( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			
+			
+			{province:'山东',city:'临沂',name:'临沂市行政审批服务局关于CAZS材料的工艺改造项目环境影响报告表受理公示( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			
+			
+			{province:'江西',city:'广州',name:'国土CQ【2023】ZY57-1号吉安市行政中心西附楼一楼（机关食堂）3号窗口3年租赁经( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			
+			
+			{province:'广东',city:'深圳',name:'深圳市龙华区教育局自行采购项目采购结果公告( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			
+			
+			{province:'四川',city:'巴中',name:'巴中市市政和园林管理中心采购“绿化药品及肥料”公告( 农药 在正文中 )'}
+			,
+			
+			
+			
+			{province:'重庆',city:'重庆',name:'忠县农业农村委员会政府采购询价通知书（农药及专业化防治服务）'}
+			,
+			
+			
+			
+			{province:'上海',city:'上海',name:'吉林三源新型建筑材料制造有限公司年产50万立方混凝土搅拌站项目环境影响评价文件受理情( 农药 在正文或附件中 )该公告内有招标文件下载）'}
+			,
+			
+			
+			
+			{province:'重庆',city:'重庆',name:'忠县农业农村委员会政府采购询价通知书（农药及专业化防治服务）该公告内有招标文件下载'}
+			,
+			
+			
+			
+			{province:'山东',city:'青岛',name:'青岛市城阳区教育体育局城阳区教育和体育局2022年物业服务采购项目( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+			{province:'福建',city:'莆田',name:'莆田市荔城区农村污水提升治理项目(二期)--新度镇(东郊村)( 农药 在正文或附件中 )该公告内有招标文件下载'}
+			,
+			
+{province:'福建',city:'莆田',name:'莆田市荔城区农村污水提升治理项目(二期)--新度镇(蒲坂村)( 农药 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'广州',name:'广州山海包装制品有限公司建设项目环境影响报告表受理公告( 农药 在正文或附件中 )该公告内有招标文件下载'},
+{province:'四川',city:'成都',name:'四川省攀西监狱2023年度政府采购意向公告(第6批)( 农药 在正文中 )'},
+{province:'江苏',city:'常州',name:'一、项目基本情况( 农药 在正文中 )'},
+{province:'河南',city:'驻马店',name:'驻马店市生态环境局平舆分局关于2023年7月5日拟对2个建设项目环境影响评价文件作出( 农药 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖北',city:'咸宁',name:'环评环保设施仓库( 农药 在正文或附件中 )该公告内有招标文件下载'},
+{province:'江西',city:'赣州',name:'国鼎和诚项目管理集团有限公司关于赣州经济技术开发区农业农村工作办公室赣州经开区农办采'},
+{province:'甘肃',city:'金昌',name:'环评金昌市生态环境局关于甘肃联凯生物科技有限公司年产1500吨N-（氟代苯并噁嗪）环已-( 农药 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'汕头',name:'盐鸿镇鸿一村副业池生态游园项目（工程监理）( 化肥 在正文中 )'},
+{province:'内蒙古',city:'赤峰',name:'环评赤峰市生态环境局松山区分局关于赤峰市松山区第九中学初中部扩建项目环评文件（报告表）受( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖北',city:'武汉',name:'审批新型建筑材料生产加工项目( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'山东',city:'临沂',name:'环评临沂市行政审批服务局关于CAZS材料的工艺改造项目环境影响报告表受理公示( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'四川',city:'巴中',name:'公告巴中市市政和园林管理中心采购“绿化药品及肥料”公告( 化肥 在正文中 )'},
+{province:'吉林',city:'通化',name:'吉林三源新型建筑材料制造有限公司年产50万立方混凝土搅拌站项目环境影响评价文件受理情( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+
+			{province:'河南',city:'三门峡',name:'竣工灵宝金源矿业股份有限公司鼎立分公司尾渣综合回收利用项目阶段性竣工环境保护验收公示( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'韶关',name:'公告乳城镇“乡村振兴光亮工程”太阳能路灯安装服务监理费( 化肥 在正文中 )'},
+{province:'广东',city:'湛江',name:'公告雷州市纪家镇北仔下周村海防执勤路修缮工程监理服务( 化肥 在正文中 )'},
+{province:'广东',city:'广州',name:'环评广州山海包装制品有限公司建设项目环境影响报告表受理公告( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'吉林',city:'长春',name:'公告吉林公司工程公司2023年度机组（部分）日常维护及检修项目劳务外包服务框架公开招标项( 化肥 在正文中 )'},
+{province:'湖北',city:'咸宁',name:'环评环保设施仓库( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'新疆',city:'喀什',name:'竣工喀什地区叶尔羌河灌区麦盖提县库尔玛乡波子支渠节水改造项目验收公示( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'东莞',name:'结果东莞市东城公用事业服务中心东城市民休闲公园管养服务项目的合同公告( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'新疆',city:'阿克苏',name:'公告阿克苏华锦化肥有限责任公司-HT230713:落地粉尘250吨（现货）阿克苏-HJH'},
+{province:'黑龙江',city:'大庆',name:'备案大庆石化公司安全设施完善项目( 化肥 在正文中 )'},
+{province:'新疆',city:'阿克苏',name:'公告阿克苏华锦化肥有限责任公司-HT230713:筛分粉尘275吨（现货）阿克苏-HJH'},
+{province:'湖北',city:'武汉',name:'审批木地板生产加工项目( 化肥 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖北',city:'武汉',name:'公告300吨干铵的招标招标公告( 化肥 在正文中 )'},
+{province:'黑龙江',city:'齐齐哈尔',name:'结果齐齐哈尔市园林绿化中心2023年植保药品采购项目(二次)结果公告( 生物刺激物 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖南',city:'怀化',name:'结果麻阳县柑桔产业发展事务中心关于化肥的网上超市采购项目成交公告( 生物刺激物 在正文中 )'},
+{province:'湖南',city:'怀化',name:'结果麻阳县柑桔产业发展事务中心关于植物生长调节剂的网上超市采购项目异常公告( 生物刺激物 在正文中 )'},
+{province:'黑龙江',city:'齐齐哈尔',name:'结果齐齐哈尔市园林绿化中心2023年植保药品采购项目(二次)结果公告( 生物刺激物 在正文或附件中 )该公告内有招标文件下载'},
+{province:'山西',city:'临汾',name:'结果2023年中央财政草原生态保护修复项目合同(2包)公告( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'黑龙江',city:'齐齐哈尔',name:'环评齐齐哈尔市生态环境局关于2023年7月3日—7月7日作出的建设项目环境影响评价文件审( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'云浮',name:'公告华润水泥（罗定）有限公司2023年度/7月-罗定水泥-办公用品-公开询比价公告( 肥料 在正文中 )'},
+{province:'山东',city:'临沂',name:'环评临沂市行政审批服务局关于CAZS材料的工艺改造项目环境影响报告表受理公示( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'四川',city:'巴中',name:'公告巴中市市政和园林管理中心采购“绿化药品及肥料”公告'},
+{province:'四川',city:'成都',name:'公告四川省产品质量省级监督抽查政府采购项目实施细则（公告）( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖北',city:'咸宁',name:'环评环保设施仓库( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'东莞',name:'结果东莞市东城公用事业服务中心东城市民休闲公园管养服务项目的合同公告( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'河北',city:'沧州',name:'公告2023年任丘市长丰镇高标准农田改造提升项目三标段招标公告( 肥料 在正文中 )'},
+{province:'云南',city:'文山壮族苗族自治州',name:'文山州自然资源和规划局关于西畴至富宁高速公路建设项目（西畴段）第二期临时用地土地复垦( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'云南',city:'文山壮族苗族自治州',name:'结果文山州自然资源和规划局关于西畴至富宁高速公路建设项目（麻栗坡段）第一期临时用地土地复( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'湖北',city:'武汉',name:'审批武汉康测医学基因检测平台项目( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'肇庆',name:'结果肇庆市端州区大龙学校肇庆市端州区大龙学校物业管理服务定点议价采购合同的合同公告( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'广东',city:'广州',name:'结果广州珠江公园日常绿化养护项目服务合同及补充协议合同公示( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'甘肃',city:'兰州',name:'竣工甘肃立铭园农业科技发展有限公司有机肥料生产加工项目（一期）竣工环境保护验收公示'},
+{province:'新疆',city:'和田',name:'结果洛浦县2023年粮食产能提升工程杭桂镇片区田间建设项目（田间道路工程）-监理标段[中( 肥料 在正文或附件中 )该公告内有招标文件下载'},
+{province:'黑龙江',city:'黑河',name:'环评北安市广铭养殖场养殖项目( 肥料 在正文中 )'},
+{province:'湖南',city:'永州',name:'结果永州市双牌县农业农村局关于化肥的网上超市采购项目成交公告( 肥料 在正文中 )'},
+{province:'甘肃',city:'嘉峪关',name:'公告酒钢集团润源公司肥料分厂2023年宏晟电热发电一、二分厂、炼铁厂产生的炉渣、脱硫石膏该公告内有招标文件下载'},
+{province:'四川',city:'广安',name:'结果岳池县土肥站有机肥料、绿肥种子（紫云英）采购项目(五次)中标（成交）结果公告该公告内有招标文件下载'}
+			];
+	
+	
+		
+$(function(){
+	$(".tabbreadcrumb>ul>li>a").bind("click", function () {
+		$(this).parent().parent().find("li").removeClass("current");
+		$(this).parent().addClass("current");
+		$(".catalogue").hide().eq($(this).parent().index()).show();
+	});
+	
+	$(".tabbreadcrumb>ul>li").eq(0).find("a").click(); 
+	
+	$('#btn_close').click(function(){
+		zone_close();
+	});
+	
+	
+	
+	
+	
+	var provinces = $.map(dataSource,function(val){
+		return val.province;
+	});
+
+	provinces = filterArray(provinces);
+	
+	$.each(provinces,function(key,val){
+		$('#s1').append('<option value="'+val+'">'+val+'</option>');
+	})
+	
+	$('#s1').bind('change',function(){
+		var $v = $(this).val();
+		$('#s2').find('option:gt(0)').remove();
+		if($v==''){
+			zone_close();
+		}
+		else{
+			var result = $.grep(dataSource,function(val,key){
+				if(val.province == $v){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+			var citys = $.map(result,function(val){
+				return val.city;
+			});
+			citys = filterArray(citys);
+			$.each(citys,function(key,val){
+				$('#s2').append('<option value="'+val+'">'+val+'</option>');
+			});
+			zone_show($v,'',1);
+		}
+	});
+	
+	$('#s2').bind('change',function(){
+		var $v = $(this).val();
+		if($v==''){
+			zone_close();
+		}
+		else{
+			zone_show($('#s1').val(),$v,2);
+		}
+	});
+	
+});
+
+function zone_close(){
+		$('#mylist').empty();
+		$('#myzone').hide();
+	}
+	
+	function zone_show(p,c,type){
+		$('#mylist').empty();
+		var result = null;
+		if(type == 1){
+			result = $.grep(dataSource,function(val,key){
+				if(val.province == p){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+			
+		}
+		else{
+			result = $.grep(dataSource,function(val,key){
+				if(val.city == c){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+		}
+
+		if(result == null){
+			zone_close();
+		}
+		
+		$.each(result,function(key,val){
+			$('#mylist').append('<tr><td class="one">'+val.city+'</td><td>'+val.name+'</td></tr>');
+		});
+		
+		$('#mytitle').text(p+' '+c+' 地方招标项目示意');
+		
+		$('#myzone').show();
+	}
+
+function setProvince(p){
+	var $v = p;
+	if($v!=''){
+		$('#s2').find('option:gt(0)').remove();
+		$('#s1').find('option').removeAttr('selected');
+		$('#s1').find('option[value="'+p+'"]').attr('selected','selected');
+		
+		var result = $.grep(dataSource,function(val,key){
+			if(val.province == $v){
+				return true;
+			}
+			else{
+				return false;
+			}
+		});
+
+		$.each(result,function(key,val){
+			$('#s2').append('<option value="'+val.city+'">'+val.city+'</option>');
+		});
+
+		zone_show($v,'',1);
+	}
+}
+
+</script>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+
+#container{margin:auto auto;width:665px;}
+#mylist td{line-height:21px;}
+#mylist td.one{width:50px;}
+</style>
+
+<div id="container">
+
+
+	<div style="font-size:12px;margin-top:15px;margin-left:5px;">    
+		
+		<div style="height:36px;line-height:14px;color:#868686">    
+				
+				招标查询            
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+						
+				省份(直辖市)：            
+				<select id="s1">            
+					<option value="">---请选择---</option>            
+				</select>            
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+						
+				城市：            
+				<select id="s2">            
+					<option value="">---请选择---</option>
+				</select>
+			
+		</div>
+	
+	
+		<div style="margin-bottom:25px;margin-left:7px;position: relative;">
+			
+			<div id="myzone" style="width:393px;position: absolute;left:200px;top:100px;display:none;">
+				<div style="height: 22px; background-image: url('images/bg_top.png'); background-repeat: repeat; background-attachment: scroll; background-position: 0% 50%">
+				<img id="btn_close" style="cursor:pointer;float: right;margin: 11px 15px 0 0;" SRC="images/close.gif" alt="关闭">
+				</div>
+				<div style="background-image: url('images/bg_middle.png'); background-repeat: repeat; background-attachment: scroll; padding-left: 20px; padding-right: 20px; padding-top: 0; padding-bottom: 0; background-position: 0% 50%">
+					<div id="mytitle" style="margin-bottom:10px;line-height:14px;font-size:14px;font-family:Microsoft YaHei;"></div>
+					<table id="mylist">
+					</table>
+				</div>
+				<div style="height: 15px; background-image: url('images/bg_bottom.png'); background-repeat: repeat; background-attachment: scroll; background-position: 0% 50%">
+				</div>
+			</div>
+		</div>
+	
+	</div>
